@@ -1,0 +1,21 @@
+name: better_riverpod_observer
+description: "A better Riverpod observer with enhanced logging and debugging capabilities for Flutter applications."
+version: 0.0.1
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  fast_immutable_collections: ">=11.1.0"
+  flutter:
+    sdk: flutter
+  riverpod: ">=3.1.0"
+  stack_trace: ">=1.12.1"
+  talker_flutter: ">=5.1.9"
+  talker_riverpod_logger: ">=5.1.9"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
