@@ -6,7 +6,10 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 base class TalkerRiverpodObserver extends ProviderObserver {
-  TalkerRiverpodObserver({Talker? talker, this.settings = const BetterRiverpodObserverSettings()}) {
+  TalkerRiverpodObserver({
+    Talker? talker,
+    this.settings = const BetterRiverpodObserverSettings(),
+  }) {
     _talker = talker ?? Talker();
   }
 
@@ -29,7 +32,9 @@ base class TalkerRiverpodObserver extends ProviderObserver {
     if (value is Iterable ||
         (value is AsyncData && value.value is Iterable) ||
         (value is AsyncLoading && value.value is Iterable)) {
-      final iterableValue = value is Iterable ? value : (value as AsyncValue).value as Iterable;
+      final iterableValue = value is Iterable
+          ? value
+          : (value as AsyncValue).value as Iterable;
       _printIterable(context.provider, iterableValue);
       return;
     }
@@ -69,12 +74,18 @@ base class TalkerRiverpodObserver extends ProviderObserver {
     if (!accepted) {
       return;
     }
-    _talker.info('Provider disposed: ${context.provider.name ?? context.provider.runtimeType}');
+    _talker.info(
+      'Provider disposed: ${context.provider.name ?? context.provider.runtimeType}',
+    );
   }
 
   @override
   @mustCallSuper
-  void didUpdateProvider(ProviderObserverContext context, Object? previousValue, Object? newValue) {
+  void didUpdateProvider(
+    ProviderObserverContext context,
+    Object? previousValue,
+    Object? newValue,
+  ) {
     super.didUpdateProvider(context, previousValue, newValue);
 
     if (!settings.enabled || !settings.printProviderUpdated) {
@@ -110,7 +121,10 @@ base class TalkerRiverpodObserver extends ProviderObserver {
     }
 
     if (newValue is Map || newValue is IMap) {
-      _printMap(context.provider, newValue is IMap ? newValue.unlock : newValue as Map);
+      _printMap(
+        context.provider,
+        newValue is IMap ? newValue.unlock : newValue as Map,
+      );
       return;
     }
 
@@ -126,15 +140,20 @@ base class TalkerRiverpodObserver extends ProviderObserver {
       }
     }
 
-    _talker.info('Provider updated: ${context.provider.name ?? context.provider.runtimeType}', {
-      'previous': previousValue,
-      'new': newValue,
-    }, null);
+    _talker.info(
+      'Provider updated: ${context.provider.name ?? context.provider.runtimeType}',
+      {'previous': previousValue, 'new': newValue},
+      null,
+    );
   }
 
   @override
   @mustCallSuper
-  void providerDidFail(ProviderObserverContext context, Object error, StackTrace stackTrace) {
+  void providerDidFail(
+    ProviderObserverContext context,
+    Object error,
+    StackTrace stackTrace,
+  ) {
     super.providerDidFail(context, error, stackTrace);
     if (!settings.enabled || !settings.printProviderFailed) {
       return;
@@ -201,6 +220,8 @@ base class TalkerRiverpodObserver extends ProviderObserver {
 }
 
 base class BetterRiverpodObserver extends TalkerRiverpodObserver {
-  BetterRiverpodObserver({super.talker, BetterRiverpodObserverSettings? settings})
-    : super(settings: settings ?? BetterRiverpodObserverSettings());
+  BetterRiverpodObserver({
+    super.talker,
+    BetterRiverpodObserverSettings? settings,
+  }) : super(settings: settings ?? BetterRiverpodObserverSettings());
 }
